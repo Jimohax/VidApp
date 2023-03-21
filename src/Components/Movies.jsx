@@ -2,13 +2,18 @@ import React, {useState} from 'react';
 import { getMovies, deleteMovie } from '../Services/fakeMovieService';
 
 
-const movies = () => {
+const Movies = () => {
   
-    let mov = getMovies();
-    const [movies, setMovies] = useState(mov);
+    // let mov =  getMovies();
+    const [movies, setMovies] = useState(getMovies());
 
-    const handleDelete = (id)=>{
-        console.log(movies);
+    const handleDelete = (movie)=>{
+       const newMovies = movies.filter(m=>m._id!== movie._id);
+
+       console.log(newMovies);
+          setMovies(newMovies);
+       console.log(newMovies);
+        // return movies;
     }
     
     return (
@@ -27,7 +32,7 @@ const movies = () => {
                     </thead>
                     <tbody>
                     
-                        {getMovies().map((m, index)=>{
+                        {movies.map((m, index)=>{
     
                         return (
                             
@@ -37,7 +42,7 @@ const movies = () => {
                             <td>{m.genre.name}</td>
                             <td>{m.numberInStock}</td>
                             <td>{m.dailyRentalRate}</td>
-                            <td><button onClick={()=>handleDelete(m._id)} className="btn btn-danger btn-sm">Delete</button></td>
+                            <td><button onClick={()=>handleDelete(m)} className="btn btn-danger btn-sm">Delete</button></td>
                             
                         </tr>
                         
@@ -53,4 +58,4 @@ const movies = () => {
       )
 }
 
-export default movies
+export default Movies
