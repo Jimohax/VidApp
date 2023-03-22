@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { getMovies } from "../Services/fakeMovieService";
 import Like from "./common/Like";
+import Pagination from "./common/pagination";
 
 const Movies = () => {
 	// let mov =  getMovies();
 	const [movies, setMovies] = useState(getMovies());
+    const [currentPage, setCurrentPage] = useState(2);
+    const [postPerPage, setPostPerPage] = useState(3);
 
 
 	const handleDelete = (movie) => {
@@ -14,6 +17,10 @@ const Movies = () => {
 		//    console.log(newMovies.length);
 		// return movies;
 	};
+
+    const lastPostIndex = currentPage * postPerPage;
+    const firstPostIndex = lastPostIndex - postPerPage;
+    const currentPosts = movies.splice(firstPostIndex, lastPostIndex);
 
     
 
@@ -36,7 +43,7 @@ const Movies = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{movies.map((m, index) => {
+					{currentPosts.map((m, index) => {
 						return (
 							<tr key={m._id}>
 								<td>{m.title}</td>
@@ -55,10 +62,17 @@ const Movies = () => {
 									</button>
 								</td>
 							</tr>
+                                
 						);
 					})}
 				</tbody>
 			</table>
+            
+    <Pagination  
+    totalPosts={movies.length}
+    postPerPage={postPerPage}
+    />
+    
 		</div>
 	);
 };
