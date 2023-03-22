@@ -2,34 +2,44 @@ import React, { useState } from "react";
 import { getMovies } from "../Services/fakeMovieService";
 import Like from "./common/Like";
 import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 const Movies = () => {
 	// let mov =  getMovies();
 	const [movies, setMovies] = useState(getMovies());
-    const [currentPage, setCurrentPage] = useState(2);
+    const [currentPage, setCurrentPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(3);
 
+	const newMovies = paginate(movies, currentPage, postPerPage);
 
 	const handleDelete = (movie) => {
 		const newMovies = movies.filter((m) => m._id !== movie._id);
 
 		setMovies(newMovies);
-		//    console.log(newMovies.length);
+		   console.log(newMovies.length);
 		// return movies;
 	};
 
-    const lastPostIndex = currentPage * postPerPage;
-    const firstPostIndex = lastPostIndex - postPerPage;
-    const currentPosts = movies.splice(firstPostIndex, lastPostIndex);
+    // const lastPostIndex = currentPage * postPerPage ;
+    // const firstPostIndex = lastPostIndex - postPerPage;
+    // const currentPosts = movies.splice(firstPostIndex, lastPostIndex);
 
+	// console.log(firstPostIndex, lastPostIndex);
+	// console.log(currentPosts);
+
+const handlePageChange = (page)=>{
+	setCurrentPage(page, currentPage, postPerPage);
+}
     
+// console.log(movies);
 
 	return (
 		<div className="row">
+			{/* {console.log(getMovies())} */}
 			<h4>
-				{movies.length < 1
+				{newMovies.length < 1
 					? "There are no movies in the database"
-					: "Showing " + movies.length + " movies in the database"}
+					: "Showing " + newMovies.length + " movies in the database"}
 			</h4>
 			<table className="table">
 				<thead>
@@ -43,7 +53,7 @@ const Movies = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{currentPosts.map((m, index) => {
+					{newMovies.map((m, index) => {
 						return (
 							<tr key={m._id}>
 								<td>{m.title}</td>
@@ -71,6 +81,8 @@ const Movies = () => {
     <Pagination  
     totalPosts={movies.length}
     postPerPage={postPerPage}
+	 onPageChange={handlePageChange}
+	 currentPage={currentPage}
     />
     
 		</div>

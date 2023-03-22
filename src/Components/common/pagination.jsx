@@ -1,18 +1,27 @@
 import React from "react";
+import  _ from 'lodash'; 
 
-const Pagination = ({ totalPosts, postPerPage }) => {
-	let pages = [];
+const Pagination = ({ totalPosts, postPerPage, onPageChange, currentPage }) => {
+	// let pages = [];
 
-	for (let i = 0; i < Math.ceil(totalPosts / postPerPage); i++) {
-		pages.push(i);
-	}
+	// for (let i = 1; i < Math.ceil(totalPosts / postPerPage) + 1; i++) {
+	// 	pages.push(i);
+	// }
+	// console.log(currentPage);
+
+	const pagesCount = Math.ceil(totalPosts / postPerPage);
+	if (pagesCount === 1) return null;
+	const pages = _.range(1, pagesCount + 1);
+
+
 	return (
 		<nav> 
+			{/* {console.log(pages)} */}
 			<ul className="pagination">
 				{pages.map((page, index) => {
 					return (
-						<li key={index} className="page-item">
-							<a className="page-link" >
+						<li key={index} className={page === currentPage? "page-item active": "page-item "} style={{cursor: "pointer"}} >
+							<a className="page-link" onClick={()=>onPageChange(page)}>
 								{page}
 							</a>
 						</li>
