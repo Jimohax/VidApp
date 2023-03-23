@@ -82,7 +82,7 @@ const handlePageChange = (page)=>{
     totalPosts={movies.length}
     postPerPage={postPerPage}
 	 onPageChange={handlePageChange}
-	 currentPage={currentPage}
+	 currentPage={"hey"}
     />
     
 		</div>
