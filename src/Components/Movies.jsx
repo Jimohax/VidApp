@@ -3,6 +3,7 @@ import { getMovies } from "../Services/fakeMovieService";
 import Like from "./common/Like";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import Genres from "./Genres";
 
 const Movies = () => {
 	// let mov =  getMovies();
@@ -30,12 +31,17 @@ const Movies = () => {
 const handlePageChange = (page)=>{
 	setCurrentPage(page, currentPage, postPerPage);
 }
-    
+    const handleSelect = (g)=>{
+		console.log(g.name);
+	}
 // console.log(movies);
 
 	return (
 		<div className="row">
-			{/* {console.log(getMovies())} */}
+			<div className="col-2">
+				<Genres  onItemSelect={handleSelect}/>
+			</div>
+			<div className="col">
 			<h4>
 				{newMovies.length < 1
 					? "There are no movies in the database"
@@ -77,13 +83,16 @@ const handlePageChange = (page)=>{
 					})}
 				</tbody>
 			</table>
-            
-    <Pagination  
+			<Pagination  
     totalPosts={movies.length}
     postPerPage={postPerPage}
 	 onPageChange={handlePageChange}
 	 currentPage={currentPage}
     />
+			</div>
+			
+            
+    
     
 		</div>
 	);

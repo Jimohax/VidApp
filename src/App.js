@@ -7,17 +7,8 @@ import Genres from "./Components/Genres";
 const App = () => {
 	return (
 		<main className="container">
-			<div className="row">
-				<div className="col-2">
-					<Genres/>
-
-				</div>
-				<div className="col">
-					<Movies />   
-				</div>
-			</div>
-			
-			
+	 		<Movies /> 
+						
 		</main>
 	);
 };
