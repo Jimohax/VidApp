@@ -12,13 +12,15 @@ const Movies = () => {
 	const [postPerPage, setPostPerPage] = useState(3);
 	const [genreSelect, setGenreSelect] = useState('');
 
-	const newMovies = paginate(movies, currentPage, postPerPage);
+	const filtered = genreSelect ? movies.filter(m=> m.genre._id == genreSelect._id): movies;
+
+	const newMovies = paginate(filtered, currentPage, postPerPage);
 
 	const handleDelete = (movie) => {
 		const newMovies = movies.filter((m) => m._id !== movie._id);
 
 		setMovies(newMovies);
-		console.log(newMovies.length);
+		// console.log(newMovies.length);
 		// return movies;
 	};
 
@@ -33,7 +35,7 @@ const Movies = () => {
 		setCurrentPage(page, currentPage, postPerPage);
 	};
 	const handleSelect = (g) => {
-		setGenreSelect(g.name);
+		setGenreSelect(g);
 		// console.log(g);
 	};
 	// console.log(movies);
@@ -41,14 +43,14 @@ const Movies = () => {
 	return (
 		<div className="row">
 			<div className="col-2">
-				<Genres onItemSelect={handleSelect} selectedItem={genreSelect} />
+				<Genres onItemSelect={handleSelect} selectedItem={genreSelect} allmovies={movies} />
 			</div>
 			<div className="col">
 				<h4>
-					{newMovies.length < 1
+					{filtered.length < 1
 						? "There are no movies in the database"
 						: "Showing " +
-						  newMovies.length +
+						  filtered.length +
 						  " movies in the database"}
 				</h4>
 				<table className="table">
@@ -87,7 +89,7 @@ const Movies = () => {
 					</tbody>
 				</table>
 				<Pagination
-					totalPosts={movies.length}
+					totalPosts={filtered.length}
 					postPerPage={postPerPage}
 					onPageChange={handlePageChange}
 					currentPage={currentPage}
