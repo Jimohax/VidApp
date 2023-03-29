@@ -1,11 +1,24 @@
-import React from "react";
-import { genres } from "../Services/fakeGenreService";
+import React, { useState } from "react";
+// import { genres } from "../Services/fakeGenreService";
+import { getGenres  } from "../Services/fakeGenreService";
 
-const Genres = ({ onItemSelect, selectedItem, allmovies }) => {
+
+
+const Genres = ({ onItemSelect, selectedItem}) => {
+
+	const newGenre = [{name: "All Genres"}, ...getGenres()]
+	const [genre, setGenre] = useState(newGenre);
+	           
+
+// setGenre([{name: "All Genres"}, ...getGenres()]);
+// setGenre(getGenres())
+// console.log(newGenre);
+// console.log(getGenres());
+
 	return (
 		<ul className="list-group" style={{ cursor: "pointer" }}>
-			<li className="list-group-item active" onClick={() => onItemSelect(allmovies)}>All Genres</li>
-			{genres.map((g, index) => {
+			
+			{genre.map((g, index) => {
 				return (
 					<li
 						className={

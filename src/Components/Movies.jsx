@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getMovies } from "../Services/fakeMovieService";
+import { getGenres } from "../Services/fakeGenreService";
 import Like from "./common/Like";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
@@ -7,12 +8,15 @@ import Genres from "./Genres";
 
 const Movies = () => {
 	// let mov =  getMovies();
+	const genre = [{name: "All Genres"}, ...getGenres()]
+
 	const [movies, setMovies] = useState(getMovies());
 	const [currentPage, setCurrentPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(3);
-	const [genreSelect, setGenreSelect] = useState('');
+	const [genreSelect, setGenreSelect] = useState(genre);
 
-	const filtered = genreSelect ? movies.filter(m=> m.genre._id == genreSelect._id): movies;
+
+	const filtered = genreSelect && genreSelect._id ? movies.filter(m=> m.genre._id == genreSelect._id): movies;
 
 	const newMovies = paginate(filtered, currentPage, postPerPage);
 
@@ -36,6 +40,7 @@ const Movies = () => {
 	};
 	const handleSelect = (g) => {
 		setGenreSelect(g);
+		setCurrentPage(1);
 		// console.log(g);
 	};
 	// console.log(movies);
