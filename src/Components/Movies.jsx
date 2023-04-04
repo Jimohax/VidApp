@@ -8,15 +8,17 @@ import MoviesTable from "./MoviesTable";
 
 const Movies = () => {
 	// let mov =  getMovies();
-	const genre = [{name: "All Genres"}, ...getGenres()]
+	const genre = [{ name: "All Genres" }, ...getGenres()];
 
 	const [movies, setMovies] = useState(getMovies());
 	const [currentPage, setCurrentPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(3);
 	const [genreSelect, setGenreSelect] = useState(genre);
 
-
-	const filtered = genreSelect && genreSelect._id ? movies.filter(m=> m.genre._id == genreSelect._id): movies;
+	const filtered =
+		genreSelect && genreSelect._id
+			? movies.filter((m) => m.genre._id == genreSelect._id)
+			: movies;
 
 	const newMovies = paginate(filtered, currentPage, postPerPage);
 
@@ -27,6 +29,10 @@ const Movies = () => {
 		// console.log(newMovies.length);
 		// return movies;
 	};
+
+	const handleSort = (path)=>{
+		console.log(path);
+	}
 
 	// const lastPostIndex = currentPage * postPerPage ;
 	// const firstPostIndex = lastPostIndex - postPerPage;
@@ -48,7 +54,11 @@ const Movies = () => {
 	return (
 		<div className="row">
 			<div className="col-2">
-				<Genres onItemSelect={handleSelect} selectedItem={genreSelect} allmovies={movies} />
+				<Genres
+					onItemSelect={handleSelect}
+					selectedItem={genreSelect}
+					allmovies={movies}
+				/>
 			</div>
 			<div className="col">
 				<h4>
@@ -58,10 +68,7 @@ const Movies = () => {
 						  filtered.length +
 						  " movies in the database"}
 				</h4>
-				<MoviesTable 
-				newMovies={newMovies}
-				onDelete={handleDelete}
-				/>
+				<MoviesTable newMovies={newMovies} onDelete={handleDelete} onSort={handleSort} />
 				<Pagination
 					totalPosts={filtered.length}
 					postPerPage={postPerPage}

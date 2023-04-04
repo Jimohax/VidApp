@@ -4,15 +4,15 @@ import Like from "./common/Like";
 
 const MoviesTable = props => {
 
-    const {newMovies, onDelete} = props;
+    const {newMovies, onDelete, onSort} = props;
   return (
     <table className="table">
-					<thead>
+					<thead>  
 						<tr>
-							<th scope="col">Title</th>
-							<th scope="col">Genre</th>
-							<th scope="col">Stock</th>
-							<th scope="col">Rate</th>
+							<th onClick={()=>onSort('title')}>Title</th>
+							<th onClick={()=>onSort('genre')}>Genre</th>
+							<th onClick={()=>onSort('numberInStock')}>Stock</th>
+							<th onClick={()=>onSort('dailyRentalRate')}>Rate</th>
 							<th />
 							<th />
 						</tr>
