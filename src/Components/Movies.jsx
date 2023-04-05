@@ -5,6 +5,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import Genres from "./Genres";
 import MoviesTable from "./MoviesTable";
+import _ from "lodash";
 
 const Movies = () => {
 	// let mov =  getMovies();
@@ -14,13 +15,19 @@ const Movies = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(3);
 	const [genreSelect, setGenreSelect] = useState(genre);
+	const [sortColumn, setSortColumn] = useState({
+		path: "title",
+		order: "asc",
+	});
 
 	const filtered =
 		genreSelect && genreSelect._id
 			? movies.filter((m) => m.genre._id == genreSelect._id)
 			: movies;
 
-	const newMovies = paginate(filtered, currentPage, postPerPage);
+	const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+	const newMovies = paginate(sorted, currentPage, postPerPage);
 
 	const handleDelete = (movie) => {
 		const newMovies = movies.filter((m) => m._id !== movie._id);
@@ -30,9 +37,9 @@ const Movies = () => {
 		// return movies;
 	};
 
-	const handleSort = (path)=>{
-		console.log(path);
-	}
+	const handleSort = (sortColumn2) => {
+		setSortColumn(sortColumn2);
+	};
 
 	// const lastPostIndex = currentPage * postPerPage ;
 	// const firstPostIndex = lastPostIndex - postPerPage;
@@ -68,7 +75,12 @@ const Movies = () => {
 						  filtered.length +
 						  " movies in the database"}
 				</h4>
-				<MoviesTable newMovies={newMovies} onDelete={handleDelete} onSort={handleSort} />
+				<MoviesTable
+					newMovies={newMovies}
+					onDelete={handleDelete}
+					onSort={handleSort}
+					sortColumn={sortColumn}
+				/>
 				<Pagination
 					totalPosts={filtered.length}
 					postPerPage={postPerPage}
