@@ -36,17 +36,19 @@ const Movies = () => {
 		// console.log(newMovies.length);
 		// return movies;
 	};
+	const handleLike = (movie) => {
+		const newMovies = [...movies];
+		const index = newMovies.indexOf(movie);
+		// newMovies[index] = { ...movies[index] };
+		newMovies[index].liked = !newMovies[index].liked;
+		setMovies(newMovies);
+		
+	};
 
 	const handleSort = (sortColumn2) => {
 		setSortColumn(sortColumn2);
 	};
 
-	// const lastPostIndex = currentPage * postPerPage ;
-	// const firstPostIndex = lastPostIndex - postPerPage;
-	// const currentPosts = movies.splice(firstPostIndex, lastPostIndex);
-
-	// console.log(firstPostIndex, lastPostIndex);
-	// console.log(currentPosts);
 
 	const handlePageChange = (page) => {
 		setCurrentPage(page, currentPage, postPerPage);
@@ -79,6 +81,7 @@ const Movies = () => {
 					newMovies={newMovies}
 					onDelete={handleDelete}
 					onSort={handleSort}
+					onLike={handleLike}
 					sortColumn={sortColumn}
 				/>
 				<Pagination

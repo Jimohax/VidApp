@@ -3,33 +3,21 @@ import React, { useState } from "react";
 
 // import 'bootstrap/dist/css/bootstrap.css';
 
-const Like = () => {
-	const [liked, setLiked] = useState(false);
+const Like = (props) => {
+	// const [liked, setLiked] = useState(false);
+	
 
-	const onLike = () => {
-		setLiked((prev) => !prev);
-		console.log("hey boss");
-	};
+	let classes = "fa fa-heart";
+  if (!props.liked) classes += "-o";
 
 	return (
-		<div>
-			{liked ? (
-				<i
-					className="fa fa-heart"
-					aria-hidden="true"
-					onClick={onLike}
-          style={{cursor: "pointer"}}
-				></i>
-			) : (
-				<i
-					className="fa fa-heart-o"
-					aria-hidden="true"
-					onClick={onLike}
-          style={{cursor: "pointer"}}
+		<i
+      onClick={props.onClick}
+      style={{ cursor: "pointer" }}
+      className={classes}
+      aria-hidden="true"
+    />
 
-				></i>
-			)}
-		</div>
 	);
 };
 

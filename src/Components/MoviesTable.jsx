@@ -1,51 +1,48 @@
-import React from 'react';
+import React from "react";
 import Like from "./common/Like";
-
+import TableBody from "./common/TableBody";
+import TableHeader from "./common/TableHeader";
 
 const MoviesTable = (props) => {
+	const { newMovies, onSort, sortColumn } = props;
+	// const handleLike2 = () =>{
+	// 	console.log("hey boss");
+	// }
 
-    const {newMovies, onDelete} = props;
+	let columns = [
+		{ path: "title", label: "Title" },
+		{ path: "genre.name", label: "Genre" },
+		{ path: "numberInStock", label: "Stock" },
+		{ path: "dailyRentalRate", label: "Rate" },
+		{
+			key: "like",
+			content: (newMovie) => (
+				<Like liked={newMovie.liked} onClick={()=> props.onLike(newMovie)} />
+			),
+		},
+		{
+			key: "delete", 
+			content: (newMovie) => (
+				<button
+					onClick={() => props.onDelete(newMovie)}
+					className="btn btn-danger btn-sm"
+				>
+					Delete
+				</button>
+			),
+		},
+	];
 
-	
-  return (
-    <table className="table">
-					<thead>  
-						<tr>
-							<th onClick={()=>raiseSort('title')}>Title</th>
-							<th onClick={()=>raiseSort('genre')}>Genre</th>
-							<th onClick={()=>raiseSort('numberInStock')}>Stock</th>
-							<th onClick={()=>raiseSort('dailyRentalRate')}>Rate</th>
-							<th />
-							<th />
-						</tr>
-					</thead>
-					<tbody>
-						{newMovies.map((m, index) => {
-							return (
-								<tr key={m._id}>
-									<td>{m.title}</td>
-									<td>{m.genre.name}</td>
-									<td>{m.numberInStock}</td>
-									<td>{m.dailyRentalRate}</td>
-									<td>
-										<Like />
-									</td>
-									<td>
-										<button
-											onClick={() => onDelete(m)}
-											className="btn btn-danger btn-sm"
-										>
-											Delete
-										</button>
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-  )
-}
+	return (
+		<table className="table">
+			<TableHeader
+				columns={columns}
+				onSort={onSort}
+				sortColumn={sortColumn}
+			/>
+			<TableBody data={newMovies} columns={columns} />
+		</table>
+	);
+};
 
-
-
-export default MoviesTable
+export default MoviesTable;
