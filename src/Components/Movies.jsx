@@ -19,7 +19,7 @@ const Movies = () => {
 		path: "title",
 		order: "asc",
 	});
-
+const getPagedData =  ()=>{
 	const filtered =
 		genreSelect && genreSelect._id
 			? movies.filter((m) => m.genre._id == genreSelect._id)
@@ -28,6 +28,9 @@ const Movies = () => {
 	const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
 	const newMovies = paginate(sorted, currentPage, postPerPage);
+	return {totalCount : filtered.length, newMovies}
+}
+	
 
 	const handleDelete = (movie) => {
 		const newMovies = movies.filter((m) => m._id !== movie._id);
@@ -60,6 +63,8 @@ const Movies = () => {
 	};
 	// console.log(movies);
 
+	const {totalCount, newMovies} = getPagedData();
+
 	return (
 		<div className="row">
 			<div className="col-2">
@@ -69,12 +74,12 @@ const Movies = () => {
 					allmovies={movies}
 				/>
 			</div>
-			<div className="col">
+			<div className="col"> 
 				<h4>
-					{filtered.length < 1
+					{totalCount < 1
 						? "There are no movies in the database"
 						: "Showing " +
-						  filtered.length +
+						  totalCount +
 						  " movies in the database"}
 				</h4>
 				<MoviesTable
@@ -85,7 +90,7 @@ const Movies = () => {
 					sortColumn={sortColumn}
 				/>
 				<Pagination
-					totalPosts={filtered.length}
+					totalPosts={totalCount}
 					postPerPage={postPerPage}
 					onPageChange={handlePageChange}
 					currentPage={currentPage}

@@ -3,16 +3,16 @@ import React, { useState } from "react";
 
 // import 'bootstrap/dist/css/bootstrap.css';
 
-const Like = (props) => {
+const Like = ({liked, onClick}) => {
 	// const [liked, setLiked] = useState(false);
 	
 
 	let classes = "fa fa-heart";
-  if (!props.liked) classes += "-o";
+  if (!liked) classes += "-o";
 
 	return (
 		<i
-      onClick={props.onClick}
+      onClick={onClick}
       style={{ cursor: "pointer" }}
       className={classes}
       aria-hidden="true"

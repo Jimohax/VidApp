@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 
-const TableBody = (props) => {
+const TableBody = ({ data, columns }) => {
 	const renderCell = (item, column) => {
 		if (column.content) return column.content(item);
 		return _.get(item, column.path);
@@ -10,8 +10,7 @@ const createKey = (item, column)=>{
     return item._id + (column.path || column.key)
 }
 
-	const { data, columns } = props;
-	return (
+		return (
 		<tbody>
 			{data.map((item) => (
 				<tr key={item._id}>
