@@ -8,11 +8,15 @@ class ProductDetails extends Component {
   render() {
     return (
       <div>
-        <h1>Product Details - </h1>
+        <h1>Product Details -  </h1>
+        {console.log(this.props)}
         <button onClick={this.handleSave}>Save</button>
       </div>
     );
   }
 }
+
+
+
 
 export default ProductDetails;
