@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import Products from "./components/products";
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, Redirect} from 'react-router-dom'
 import Posts from "./components/posts";
 import Home from "./components/home";
 import Dashboard from "./components/admin/dashboard";
@@ -21,7 +21,10 @@ class App extends Component {
             <Route path="/products" Component={Products}/>
             <Route path="/posts/:year/:month" Component={Posts}/>
             <Route path="/admin" Component={Dashboard}/>
+            <Route path="/not-found" Component={NotFound}/>
             <Route path="/" Component={Home}/>
+            <Redirect path="/not-found" />
+
           </Routes>
             
         </div>
