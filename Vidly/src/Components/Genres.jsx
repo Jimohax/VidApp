@@ -22,7 +22,7 @@ const Genres = ({ onItemSelect, selectedItem}) => {
 				return (
 					<li
 						className={
-							g.name == selectedItem.name? "list-group-item active": "list-group-item"
+							g.name === selectedItem.name? "list-group-item active": "list-group-item"
 						}
 						style={{ cursor: "pointer" }}
 						key={index}

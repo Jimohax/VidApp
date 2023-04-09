@@ -22,7 +22,7 @@ const Movies = () => {
 const getPagedData =  ()=>{
 	const filtered =
 		genreSelect && genreSelect._id
-			? movies.filter((m) => m.genre._id == genreSelect._id)
+			? movies.filter((m) => m.genre._id === genreSelect._id)
 			: movies;
 
 	const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
