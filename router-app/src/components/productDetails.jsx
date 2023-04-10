@@ -1,22 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
+import {useParams} from 'react-router-dom'
 
-class ProductDetails extends Component {
-  handleSave = () => {
-    // Navigate to /products
-  };
 
-  render() {
+
+
+export default function productDetails() {
+  const  handleSave = () => {
+      // Navigate to /products
+    };
+    const {id} = useParams()
+
+
     return (
       <div>
-        <h1>Product Details -  </h1>
-        {console.log(this.props)}
-        <button onClick={this.handleSave}>Save</button>
+        <h1>Product Details - {id} </h1>
+        {console.log(id)}
+        <button onClick={handleSave}>Save</button>
       </div>
-    );
+    )
   }
-}
+  
+
+
+ 
 
 
 
 
-export default ProductDetails;

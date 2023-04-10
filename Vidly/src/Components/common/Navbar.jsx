@@ -1,16 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import '../../App.css'
 
 export default function Navbar() {
 	return (
 		<div className="Navbar">
-			<nav class="navbar navbar-expand-lg bg-body-tertiary p-3 mb-2 ">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="#">
+			<nav className="navbar navbar-expand-lg bg-body-tertiary p-3 mb-2 ">
+				<div className="container-fluid">
+					<Link className="navbar-brand" to="/">
 						Vidly
-					</a>
+					</Link>
 					<button
-						class="navbar-toggler"
+						className="navbar-toggler"
 						type="button"
 						data-bs-toggle="collapse"
 						data-bs-target="#navbarNav"
@@ -18,28 +19,28 @@ export default function Navbar() {
 						aria-expanded="false"
 						aria-label="Toggle navigation"
 					>
-						<span class="navbar-toggler-icon"></span>
+						<span className="navbar-toggler-icon"></span>
 					</button>
-					<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav">
-							<li class="nav-item">
-								<Link
-									class="nav-link active"
+					<div className="collapse navbar-collapse" id="navbarNav">
+						<ul className="navbar-nav">
+							<li className="nav-item">
+								<NavLink
+									className="nav-link  "
 									aria-current="page"
 									to={"/Movies"}
 								>
 									Movies
-								</Link>
+								</NavLink>
 							</li>
-							<li class="nav-item">
-								<Link class="nav-link" to={"/Customers"}>
+							<li className="nav-item">
+								<NavLink className="nav-link " to={"/Customers"}>
 									Customers
-								</Link>
+								</NavLink>
 							</li>
-							<li class="nav-item">
-								<Link class="nav-link" to={"/Rentals"}>
+							<li className="nav-item">
+								<NavLink className="nav-link " to={"/Rentals"}>
 									Rentals
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 					</div>

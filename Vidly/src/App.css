@@ -1,10 +1,14 @@
 body{
-    padding: 20px 0 0 0;
+    padding: 0;
 }
 .clickable{
     cursor: pointer;
 }
 
+.Navbar{
+    background-color: rgba(218, 218, 233, 0.436);
+    margin-bottom: 30px;
+}
 
   
 
