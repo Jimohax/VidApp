@@ -7,6 +7,7 @@ import Customers from "./Components/Customers";
 import Rentals from "./Components/Rentals";
 import NotFound from "./Components/NotFound";
 import MovieForm from "./Components/MovieForm";
+import LoginForm from "./Components/common/LoginForm";
 
 
 // import Genres from "./Components/Genres";
@@ -23,6 +24,7 @@ const App = () => {
 						path="/" element={<Navigate to= "Movies"/>}
 					/>
 					<Route path="/Movies" element={<Movies/>} />
+					<Route path="/login" element={<LoginForm/>} />
 					<Route path="/Movies/:id" element={<MovieForm/>} />
 					<Route path="Customers" element={<Customers/>} />
 					<Route path="Rentals" element={<Rentals/>} />

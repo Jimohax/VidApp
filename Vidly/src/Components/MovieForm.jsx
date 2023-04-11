@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 export default function MovieForm() {
   
-  const {id} = useParams();
+  const {id} = useParams(); 
   const navigate = useNavigate();
   return (
     <div>
