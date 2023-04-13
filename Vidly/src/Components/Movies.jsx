@@ -58,9 +58,8 @@ const getPagedData =  ()=>{
 
 	const handleSearch = query => {
 		setSearchQuery(query);
-		setGenreSelect(null);
+		setGenreSelect('');
 		setCurrentPage(1);
-console.log(query);
 	  };
 
 	const handleSort = (sortColumn2) => {

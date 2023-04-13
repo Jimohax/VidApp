@@ -18,7 +18,7 @@ export default function MovieForm() {
 		dailyRentalRate: "",
 	});
 	const [error, setError] = useState({});
-	const [genres, setGenres] = useState([]);
+	const [genres, setGenres] = useState(getGenres);
 
 	const schema = Joi.object({
 		_id: Joi.string(),
@@ -37,17 +37,27 @@ export default function MovieForm() {
 	});
 
   useEffect(() => {  
-	const genre = getGenres();
-  console.log(genre);
-	setGenres(genre);
-
-	const movieId = id;
-	if (movieId === "new") return;
-
-	const movie = getMovie(movieId);
-	if (!movie) return navigate("/not-found", { replace: true });
+// 	// const genre = getGenres();
+// 	// const genre = genres;
+//   // console.log(genre);
+// 	// setGenres(getGenres);
+//   // console.log(genres.name);
   
-  setData(mapToViewModel(movie));
+	const movieId = id;
+  // console.log('before');
+	if (movieId === "new") {
+    // console.log('after');
+    return;
+    
+  } else {
+    
+    // console.log("else running");
+    const movie = getMovie(movieId);
+    if (!movie ) return navigate("/Movies/new", { replace: true });
+    
+    setData(mapToViewModel(movie));
+  }
+  
 }, []);
 
   const mapToViewModel = (movie) => {
@@ -76,6 +86,8 @@ export default function MovieForm() {
 		return errors;
 	};
 
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -83,13 +95,13 @@ export default function MovieForm() {
 		console.log(errors);
 		setError(errors || {});
 		if (errors) return;
+
+    doSubmit();
 	};
 
 	const handleChange = (e) => {
 		setData({ ...data, [e.target.name]: e.target.value });
-		// const {name, value} = e.target
-
-		// console.log(data);
+    
 	};
 	return (
 		<div>
@@ -105,9 +117,9 @@ export default function MovieForm() {
 						onChange={handleChange}
 					/>
           <Select 
-          name="genre"
+          name="genreId"
           errors={error.genre}
-          value={genres}
+          // value={genres}
           options={genres}
           type={"select"}
           label="Genre"

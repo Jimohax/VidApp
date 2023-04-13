@@ -9,6 +9,7 @@ export default function Select({ name, label, options, error, ...rest }) {
         {options.map(option => (
           <option key={option._id} value={option._id}>
             {option.name}
+            {/* {console.log(option.name)} */}
           </option>
         ))}
       </select>
