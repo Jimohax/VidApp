@@ -6,6 +6,9 @@ import { paginate } from "../utils/paginate";
 import Genres from "./Genres";
 import MoviesTable from "./MoviesTable";
 import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import SearchBox from "./SearchBox";
+
 
 const Movies = () => {
 	// let mov =  getMovies();
@@ -14,16 +17,21 @@ const Movies = () => {
 	const [movies, setMovies] = useState(getMovies());
 	const [currentPage, setCurrentPage] = useState(1);
 	const [postPerPage, setPostPerPage] = useState(3);
+	const [searchQuery, setSearchQuery] = useState('');
 	const [genreSelect, setGenreSelect] = useState(genre);
 	const [sortColumn, setSortColumn] = useState({
 		path: "title",
 		order: "asc",
 	});
 const getPagedData =  ()=>{
-	const filtered =
-		genreSelect && genreSelect._id
-			? movies.filter((m) => m.genre._id === genreSelect._id)
-			: movies;
+	let filtered = movies;
+    if (searchQuery)
+      filtered = movies.filter(m =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    else if (genreSelect && genreSelect._id)
+      filtered = movies.filter(m => m.genre._id === genreSelect._id);
+
 
 	const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
@@ -48,6 +56,13 @@ const getPagedData =  ()=>{
 		
 	};
 
+	const handleSearch = query => {
+		setSearchQuery(query);
+		setGenreSelect(null);
+		setCurrentPage(1);
+console.log(query);
+	  };
+
 	const handleSort = (sortColumn2) => {
 		setSortColumn(sortColumn2);
 	};
@@ -59,13 +74,16 @@ const getPagedData =  ()=>{
 	const handleSelect = (g) => {
 		setGenreSelect(g);
 		setCurrentPage(1);
+		setSearchQuery("")
 		// console.log(g);
 	};
 	// console.log(movies);
 
 	const {totalCount, newMovies} = getPagedData();
+	const navigate = useNavigate();
 
 	return (
+		<div>
 		<div className="row">
 			<div className="col-2">
 				<Genres
@@ -75,6 +93,7 @@ const getPagedData =  ()=>{
 				/>
 			</div>
 			<div className="col"> 
+			<button className="btn btn-primary " onClick={()=> navigate("/Movies/new")}>New Movies</button>
 				<h4>
 					{totalCount < 1
 						? "There are no movies in the database"
@@ -82,6 +101,7 @@ const getPagedData =  ()=>{
 						  totalCount +
 						  " movies in the database"}
 				</h4>
+				<SearchBox value={searchQuery} onChange={handleSearch} />
 				<MoviesTable
 					newMovies={newMovies}
 					onDelete={handleDelete}
@@ -96,6 +116,7 @@ const getPagedData =  ()=>{
 					currentPage={currentPage}
 				/>
 			</div>
+		</div>
 		</div>
 	);
 };

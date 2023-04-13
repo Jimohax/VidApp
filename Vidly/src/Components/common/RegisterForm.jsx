@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import Joi from 'joi-browser'
-// import { object } from "prop-types";
 
-export default function LoginForm() {
-	// const username = React.createRef();
+export default function RegisterForm() {
+  // const username = React.createRef();
 	const [data, setData] = useState({
 		username: "",
 		password: "",
+    name: ""
 	});
 	const [error, setError] = useState({});
 
 	const schema =  Joi.object({ 
 		username: Joi.string().required(),
 		password: Joi.string().required(),
+		name: Joi.string().required(),
 	});
 
 	
@@ -45,7 +46,7 @@ export default function LoginForm() {
 
 	return (
 		<div>
-			<h1>Login</h1>
+			<h1>Register</h1>
 			<form onSubmit={handleSubmit}>
 				<Input
 					name="username"
@@ -61,9 +62,16 @@ export default function LoginForm() {
 					label="Password"
 					onChange={handleChange}
 				/>
+        <Input
+					name="name"
+					errors={error.name}
+					value={data.name}
+					label="name"
+					onChange={handleChange}
+				/>
 				
 				<button className="btn btn-primary mt-3" onClick={handleSubmit}>
-					Login
+					Register
 				</button>
 			</form>
 		</div>

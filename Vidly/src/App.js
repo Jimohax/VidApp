@@ -8,6 +8,7 @@ import Rentals from "./Components/Rentals";
 import NotFound from "./Components/NotFound";
 import MovieForm from "./Components/MovieForm";
 import LoginForm from "./Components/common/LoginForm";
+import RegisterForm from "./Components/common/RegisterForm";
 
 
 // import Genres from "./Components/Genres";
@@ -25,7 +26,9 @@ const App = () => {
 					/>
 					<Route path="/Movies" element={<Movies/>} />
 					<Route path="/login" element={<LoginForm/>} />
+					<Route path="/register" element={<RegisterForm/>} />
 					<Route path="/Movies/:id" element={<MovieForm/>} />
+					<Route path="/Movies/new" element={<MovieForm/>} />
 					<Route path="Customers" element={<Customers/>} />
 					<Route path="Rentals" element={<Rentals/>} />
 					<Route path="not-found" element={<NotFound />} />

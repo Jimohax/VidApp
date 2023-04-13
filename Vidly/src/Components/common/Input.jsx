@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Input({name, label, value, errors, onChange}) {
+export default function Input({name, label, value, type, errors, onChange}) {
 
   return (
     <div className="form-group">
@@ -10,7 +10,7 @@ export default function Input({name, label, value, errors, onChange}) {
 				id={name}
                 name={name}
 				value={value}
-				type="text"
+				type= {type}
 				className="form-control"
 				onChange={onChange}
 			/>
