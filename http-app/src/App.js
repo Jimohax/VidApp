@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <button className="btn btn-primary" onClick={this.handleAdd}>
-          AddIn
+          Addvid
         </button>
         <table className="table">
           <thead>

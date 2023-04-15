@@ -39,7 +39,7 @@ export default function App2() {
 	return (
 		<React.Fragment>
 			<button className="btn btn-primary" onClick={handleAdd}>
-				AddOn
+				Addme
 			</button>
 			<table className="table">
 				<thead>
